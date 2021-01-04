@@ -1,0 +1,10 @@
+<h2>Device-Selector:</h2>
+<ng-container *ngIf="devicesService.accessGranted">
+    <div
+        class="device"
+        (click)="devicesService.selectInputDevice(entry)"
+        *ngFor="let entry of devicesService.getListOfInputs()"
+        >
+        <p>{{entry.name}}</p>
+    </div>
+</ng-container>

@@ -1,0 +1,14 @@
+<h2 (click)="devicesService.requestAccess()">request access</h2>
+<h2 (click)="devicesService.getListOfInputs()">get devices list</h2>
+<h2 (click)="devicesService.listenToInput()">listen to input</h2>
+<h2 (click)="loadAudio();">load audio</h2>
+<h2 (click)="playAudio1();">play audio 1</h2>
+<h2 (click)="playAudio2();">play audio 2</h2>
+<h2 (click)="devicesService.test();">test output</h2>
+
+
+<h2>---------------------------------------</h2>
+<app-device-selector></app-device-selector>
+<h2>access requested: {{devicesService.accessRequested}}</h2>
+<h2>access granted: {{devicesService.accessGranted}}</h2>
+<h2>current selected device: {{devicesService.getCurrentSelecteInputDevice()?.name}}</h2>
