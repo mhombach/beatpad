@@ -1,0 +1,16 @@
+:host {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border: 5px solid black;
+    margin: 5px;
+
+    &.activeDragHover {
+        border: 5px solid blue;
+    }
+
+    &.soundFileLoaded {
+        border: 5px solid green;
+    }
+}
+
