@@ -1,15 +1,5 @@
 import { Component, HostBinding, HostListener, Input, OnInit } from '@angular/core';
 import { ActionService } from 'src/app/services/action/action.service';
-
-// this.soundFile.fastSeek
-// this.soundFile.loop
-// this.soundFile.muted
-// this.soundFile.playbackRate
-// this.soundFile.preload
-// this.soundFile.seekable
-// this.soundFile.volume
-// ... .srcObject
-
 @Component({
   selector: 'app-midi-button',
   templateUrl: './midi-button.component.html',
@@ -20,7 +10,6 @@ export class MidiButtonComponent implements OnInit {
   @Input() name: string;
   @Input() noteKey: number;
 
-  private midiOutput: any;
   private isPlayingSoundFile: boolean;
 
   @HostBinding('class.activeDragHover') private activeDragHover: boolean;
