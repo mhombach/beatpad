@@ -35,13 +35,7 @@ export class DevicesService {
     }
   }
 
-  /*test_LED_Output() {
-    let out: any[] = Array.from(this.midi.outputs.values());
-    console.log('midi:', out[0]);
-    out[1].send([144, 0, 127]);
-  }*/
-
-  getListOfInputs() {
+  getListOfInputs(): any[] {
     return Array.from(this.midi.inputs.values());
   }
 

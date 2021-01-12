@@ -66,8 +66,8 @@ export class MidiButtonComponent implements OnInit {
 
   loadSoundFile(soundFileName: string) {
     this.pause();
-    this.soundFile = new Audio();
-    this.soundFile.src = `../assets/${soundFileName}.wav`;
+    this.soundFile = new Audio(`../assets/${soundFileName}`);
+    this.soundFile.load(); // why was it working without this???
     this.actionService.changeLightOnMidiKey(this.noteKey, true);
     this.soundFile.onended = this.soundFileHasEnded.bind(this);
   }

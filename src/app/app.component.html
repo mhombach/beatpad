@@ -1,22 +1,12 @@
-<h2 (click)="devicesService.requestAccess()">request access</h2>
-<!--<h2 (click)="loadAudio();">load audio</h2>
-<h2 (click)="playAudio1();">play audio 1</h2>
-<h2 (click)="playAudio2();">play audio 2</h2>-->
+<app-device-selector></app-device-selector>
 
-<h2>---------------------------------------</h2>
+<h4>access requested: {{devicesService.accessRequested}}</h4>
+<h4>access granted: {{devicesService.accessGranted}}</h4>
+<h4>current selected device: {{devicesService.getCurrentSelecteInputDevice()?.name}}</h4>
 
 <ng-container *ngIf="devicesService.getCurrentSelecteInputDevice()?.name">
     <app-midi-button [name]="'A'" [noteKey]="0"></app-midi-button>
     <app-midi-button [name]="'B'" [noteKey]="1"></app-midi-button>
 </ng-container>
 
-
-
-<h2>---------------------------------------</h2>
-<app-device-selector></app-device-selector>
-<h2>access requested: {{devicesService.accessRequested}}</h2>
-<h2>access granted: {{devicesService.accessGranted}}</h2>
-<h2>current selected device: {{devicesService.getCurrentSelecteInputDevice()?.name}}</h2>
-
-<app-draggable-audio-item [name]="'Sound 1'" [value]="'test1'"></app-draggable-audio-item>
-<app-draggable-audio-item [name]="'Sound 2'" [value]="'test2'"></app-draggable-audio-item>
+<app-audio-explorer></app-audio-explorer>

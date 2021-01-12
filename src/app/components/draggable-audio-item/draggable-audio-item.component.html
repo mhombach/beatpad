@@ -1,1 +1,3 @@
-sound: {{name}}
+{{name}} ->
+<span (click)="play()" *ngIf="!currentlyPreviewing">[play]</span>
+<span (click)="stop()" *ngIf="currentlyPreviewing">[stop]</span>
