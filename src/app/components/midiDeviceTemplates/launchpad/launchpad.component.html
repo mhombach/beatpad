@@ -1,0 +1,18 @@
+<app-midi-button
+    *ngFor="let noteKey of [104,105,106,107,108,109,110,111]"
+    [name]="noteKey"
+    [noteKey]="noteKey"
+    class="round"
+    [style.grid-area]="generateGridAreaName(176, noteKey)"
+></app-midi-button>
+
+<ng-container *ngFor="let rowStart of [0,16,32,48,64,80,96,112]">
+    <app-midi-button
+        *ngFor="let noteKeyIncrement of [0,1,2,3,4,5,6,7,8]"
+        [name]="rowStart + noteKeyIncrement"
+        [noteKey]="rowStart + noteKeyIncrement"
+        [style.grid-area]="generateGridAreaName(144, rowStart, noteKeyIncrement)"
+        [ngClass]="noteKeyIncrement === 8 ? 'round' : 'square'"
+    ></app-midi-button>
+</ng-container>
+<!--[style.grid-area]="'n' + (rowStart + noteKeyIncrement)"-->

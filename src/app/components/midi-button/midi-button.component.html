@@ -1,10 +1,2 @@
-Midi-Button: {{name}}<br>
-Note-Key: {{noteKey}}<br>
-<br>
-<ng-container *ngIf="soundFileName">
-    <span>
-        loaded:<br>
-        {{soundFileName}}
-    </span>
-    <span (click)="unloadSoundFile()">[X]</span>
-</ng-container>
+<div class="noteKey" title="{{soundFileName}}">{{noteKey}}</div>
+<div class="unloadSoundFile" *ngIf="soundFileName" (click)="unloadSoundFile()">[X]</div>

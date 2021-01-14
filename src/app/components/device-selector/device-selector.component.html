@@ -1,10 +1,7 @@
-<h2>Device-Selector:</h2>
-<ng-container *ngIf="devicesService.accessGranted">
-    <div
-        class="device"
-        (click)="devicesService.selectInputDevice(entry)"
+<select (change)="onChange($event)">
+    <option value="none">Please select device</option>
+    <option
         *ngFor="let entry of devicesService.getListOfInputs()"
-        >
-        <p>{{entry.name}}</p>
-    </div>
-</ng-container>
+        [value]="entry.name"
+    >{{entry.name}}</option>
+</select>

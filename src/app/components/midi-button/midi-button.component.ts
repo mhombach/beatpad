@@ -11,6 +11,7 @@ export class MidiButtonComponent implements OnInit {
   @Input() noteKey: number;
 
   private isPlayingSoundFile: boolean;
+  private soundFile: HTMLAudioElement;
 
   @HostBinding('class.activeDragHover') private activeDragHover: boolean;
 
@@ -18,36 +19,34 @@ export class MidiButtonComponent implements OnInit {
     return this.soundFile !== undefined;
   }
 
-  @HostListener('dragover', ['$event']) dragOver(event: any) {
+  @HostListener('dragover', ['$event']) dragOver(event: any): boolean {
     return false;
   }
 
-  @HostListener('dragenter', ['$event']) dragEnter(event: any) {
+  @HostListener('dragenter', ['$event']) dragEnter(event: any): void {
     console.log('dragenter over ', this.name);
     this.activeDragHover = true;
   }
 
-  @HostListener('dragleave', ['$event']) dragLeave(event: any) {
+  @HostListener('dragleave', ['$event']) dragLeave(event: any): void {
     console.log('dragleave over ', this.name);
     this.activeDragHover = false;
   }
 
-  @HostListener('drop', ['$event']) drop(event: any) {
+  @HostListener('drop', ['$event']) drop(event: any): void {
     this.activeDragHover = false;
-    const data = event.dataTransfer.getData("text/plain");
+    const data = event.dataTransfer.getData('text/plain');
     if (data) {
       this.loadSoundFile(data);
     }
   }
 
-  private soundFile: HTMLAudioElement;
-  
   get soundFileName(): string {
-    if(!this.soundFile) {
+    if (!this.soundFile) {
       return;
     }
-    let arr = this.soundFile.src.split('/');
-    return arr[arr.length-1];
+    const stringArr = this.soundFile.src.split('/');
+    return stringArr[stringArr.length - 1];
   }
 
   get hasSoundFileLoaded(): boolean {
@@ -59,12 +58,12 @@ export class MidiButtonComponent implements OnInit {
     this.isPlayingSoundFile = false;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.actionService.registerMidiButton(this);
     this.actionService.changeLightOnMidiKey(this.noteKey, false);
   }
 
-  loadSoundFile(soundFileName: string) {
+  loadSoundFile(soundFileName: string): void {
     this.pause();
     this.soundFile = new Audio(`../assets/${soundFileName}`);
     this.soundFile.load(); // why was it working without this???
@@ -72,14 +71,14 @@ export class MidiButtonComponent implements OnInit {
     this.soundFile.onended = this.soundFileHasEnded.bind(this);
   }
 
-  unloadSoundFile() {
+  unloadSoundFile(): void {
     this.soundFile.src = '';
     this.soundFile.load();
     this.soundFile = undefined;
     this.actionService.changeLightOnMidiKey(this.noteKey, false);
   }
 
-  play() {
+  play(): void {
     this.pause();
     this.soundFile.play();
     this.isPlayingSoundFile = true;
@@ -87,32 +86,28 @@ export class MidiButtonComponent implements OnInit {
     this.blinkingMidiKeyWhileSoundFileIsPlayed();
   }
 
-  pause() {
-    if(this.soundFile !== undefined && !this.soundFile.ended) {
+  pause(): void {
+    if (this.soundFile !== undefined && !this.soundFile.ended) {
       this.soundFile.pause();
       this.soundFile.currentTime = 0;
     }
   }
 
-  soundFileHasEnded() {
-    console.log('soundfile has ENDED');
+  soundFileHasEnded(): void {
     this.actionService.changeLightOnMidiKey(this.noteKey, true);
     this.isPlayingSoundFile = false;
   }
 
-  async blinkingMidiKeyWhileSoundFileIsPlayed() {
+  async blinkingMidiKeyWhileSoundFileIsPlayed(): Promise<void> {
     while (this.isPlayingSoundFile) {
       this.actionService.changeLightOnMidiKey(this.noteKey, false);
       await sleep(200);
-      if(this.isPlayingSoundFile) {
+      if (this.isPlayingSoundFile) {
         this.actionService.changeLightOnMidiKey(this.noteKey, true);
         await sleep(200);
       }
     }
   }
-
 }
 
-const sleep = (ms: number) => new Promise(r => setTimeout(r, ms)); 
-   
-
+const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));

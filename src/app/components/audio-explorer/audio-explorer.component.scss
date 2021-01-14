@@ -1,9 +1,10 @@
 :host {
     display: block;
-    width: 700px;
-    height: 200px;
+    width: auto;
+    height: 90%;
     border: 2px solid purple;
-    overflow: scroll;
+    overflow: auto;
+    padding: 15px;
 
     .audioFile {
         border: 1px solid black;

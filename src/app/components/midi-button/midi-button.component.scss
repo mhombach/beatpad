@@ -1,16 +1,27 @@
 :host {
     display: inline-block;
-    width: 150px;
-    height: 150px;
-    border: 5px solid black;
+    width: 80px;
+    height: 80px;
+    border: 1px solid darkgrey;
     margin: 5px;
 
     &.activeDragHover {
-        border: 5px solid blue;
+        border: 1px solid blue;
     }
 
     &.soundFileLoaded {
-        border: 5px solid green;
+        border: 1px solid green;
+    }
+
+    .noteKey {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 36px;
+    }
+
+    .unloadSoundFile {
+        font-size: 22px;
+        text-align: center;
     }
 }
 

@@ -6,7 +6,7 @@ import { DevicesService } from '../devices/devices.service';
   providedIn: 'root'
 })
 export class ActionService {
-  
+
   keyMap: Map<number, MidiButtonComponent>;
 
   constructor(private devicesService: DevicesService) {
@@ -14,30 +14,28 @@ export class ActionService {
     this.devicesService.inputEvent.subscribe(this.inputEvent.bind(this));
   }
 
-  inputEvent(event: any) {
-    console.log('actionservice -> inputEvent:', event);
+  inputEvent(event: any): void {
     const keyPressDown: boolean = event[2] === 127;
-    if(!keyPressDown) {
+    if (!keyPressDown) {
       return;
     }
     const noteKey: number = event[1];
     const midiButtonComponent: MidiButtonComponent = this.keyMap.get(noteKey);
-    if(!midiButtonComponent) {
+    if (!midiButtonComponent) {
       console.warn('key was pressed that was not mapped');
       return;
     }
-    if(midiButtonComponent.hasSoundFileLoaded) {
-      console.log('calling on OBJECT:', midiButtonComponent);
+    if (midiButtonComponent.hasSoundFileLoaded) {
       midiButtonComponent.play.call(midiButtonComponent);
     }
   }
 
-  registerMidiButton(midiButton: MidiButtonComponent) {
+  registerMidiButton(midiButton: MidiButtonComponent): void {
     this.keyMap.set(midiButton.noteKey, midiButton);
     console.log(`registered ${midiButton.name} midiButton`);
   }
 
-  changeLightOnMidiKey(noteKey: number, on: boolean) {
+  changeLightOnMidiKey(noteKey: number, on: boolean): void {
     const STATIC_NUMBER: number = 144;
     const statusNumber: number = on ? 127 : 0;
     const data: number[] = [STATIC_NUMBER, noteKey, statusNumber];

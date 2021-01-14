@@ -1,12 +1,10 @@
-<app-device-selector></app-device-selector>
-
-<h4>access requested: {{devicesService.accessRequested}}</h4>
-<h4>access granted: {{devicesService.accessGranted}}</h4>
-<h4>current selected device: {{devicesService.getCurrentSelecteInputDevice()?.name}}</h4>
-
+<div id="header">
+    <app-device-selector></app-device-selector>
+    <span>(Debug: access requested: {{devicesService.accessRequested}} access granted: {{devicesService.accessGranted}})</span>
+</div>
 <ng-container *ngIf="devicesService.getCurrentSelecteInputDevice()?.name">
-    <app-midi-button [name]="'A'" [noteKey]="0"></app-midi-button>
-    <app-midi-button [name]="'B'" [noteKey]="1"></app-midi-button>
+    <div id="deviceBoard">
+        <app-launchpad></app-launchpad>
+    </div>
+    <app-audio-explorer></app-audio-explorer>
 </ng-container>
-
-<app-audio-explorer></app-audio-explorer>

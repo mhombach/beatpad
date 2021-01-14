@@ -6,6 +6,7 @@ import { DeviceSelectorComponent } from './components/device-selector/device-sel
 import { MidiButtonComponent } from './components/midi-button/midi-button.component';
 import { DraggableAudioItemComponent } from './components/draggable-audio-item/draggable-audio-item.component';
 import { AudioExplorerComponent } from './components/audio-explorer/audio-explorer.component';
+import { LaunchpadComponent } from './components/midiDeviceTemplates/launchpad/launchpad.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { AudioExplorerComponent } from './components/audio-explorer/audio-explor
     DeviceSelectorComponent,
     MidiButtonComponent,
     DraggableAudioItemComponent,
-    AudioExplorerComponent
+    AudioExplorerComponent,
+    LaunchpadComponent
   ],
   imports: [
     BrowserModule

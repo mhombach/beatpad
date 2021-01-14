@@ -26,54 +26,55 @@ export class DevicesService {
       this.midi = await window.navigator['requestMIDIAccess']();
       this.accessGranted = true;
       console.log('access-request successfull:', this.midi);
-      console.log('outputs:', Array.from(this.midi.outputs.values()));
-      console.log('inputs:', Array.from(this.midi.inputs.values()));
-
-
     } catch (error) {
       console.error('error while requesting midi-access:', error);
     }
   }
 
   getListOfInputs(): any[] {
-    return Array.from(this.midi.inputs.values());
+    if (this.midi) {
+      return Array.from(this.midi?.inputs.values());
+    }
+    return [];
   }
 
-  private listenToInput() {
-    this.selectedInputDevice.onmidimessage = (event) => {
-      this.inputEvent.next(event.data);
+  private listenToInput(): void {
+    if (this.selectedInputDevice) {
+      this.selectedInputDevice.onmidimessage = (event) => {
+        this.inputEvent.next(event.data);
+      };
     }
   }
 
-  stopListeningToInput() {
-    if(this.selectedInputDevice) {
+  stopListeningToInput(): void {
+    if (this.selectedInputDevice) {
       this.selectedInputDevice.onmidimessage = null;
     }
   }
 
-  getCurrentSelecteInputDevice() {
+  getCurrentSelecteInputDevice(): any {
     return this.selectedInputDevice;
   }
 
-  selectInputDevice(device) {
+  selectInputDevice(device): void {
     this.stopListeningToInput();
     this.selectedInputDevice = device;
     this.listenToInput();
     this.activateOutputDevice();
   }
 
-  sendToOutput(data: number[]) {
+  sendToOutput(data: number[]): void {
     this.selectedOutputDevice.send(data);
   }
 
-  private activateOutputDevice() {
-    const inputName: string = this.selectedInputDevice.name;
-    for (const output of this.midi.outputs.values()) {
-      console.log('output arr found:', output);
-      if(output.name === inputName) {
-        console.log('output arr found same name:', inputName);
-        this.selectedOutputDevice = output;
-        return;
+  private activateOutputDevice(): void {
+    if (this.selectedInputDevice) {
+      const inputName: string = this.selectedInputDevice.name;
+      for (const output of this.midi.outputs.values()) {
+        if (output.name === inputName) {
+          this.selectedOutputDevice = output;
+          return;
+        }
       }
     }
   }

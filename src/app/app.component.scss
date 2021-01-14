@@ -1,0 +1,18 @@
+:host {
+    display: grid;
+    grid-template-areas: "header header"
+        "deviceBoard audioExplorer";
+    grid-template-columns: max-content 1fr;
+}
+
+#header {
+    grid-area: header;
+}
+
+#deviceBoard {
+    grid-area: deviceBoard;
+}
+
+app-audio-explorer {
+    grid-area: audioExplorer;
+}
